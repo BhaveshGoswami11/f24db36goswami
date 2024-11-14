@@ -40,9 +40,7 @@ exports.potion_create_post = async function(req, res) {
         // Create a new potion using the data in the request body
         const newPotion = new Potion({
             name: req.body.name,
-            type: req.body.type,
-            effect: req.body.effect,
-            ingredients: req.body.ingredients,
+            effect: req.body.effect
         });
 
         // Save the new potion to the database

@@ -37,9 +37,9 @@ async function recreateDB() {
   await Potion.deleteMany(); // Clear existing data
 
   // Create sample potion entries
-  let potion1 = new Potion({ name: "Healing Potion", effect: "Restores health", price: 10 });
-  let potion2 = new Potion({ name: "Mana Potion", effect: "Restores mana", price: 15 });
-  let potion3 = new Potion({ name: "Stamina Potion", effect: "Restores stamina", price: 12 });
+  let potion1 = new Potion({ name: "Healing Potion", effect: "Restores health" });
+  let potion2 = new Potion({ name: "Mana Potion", effect: "Restores mana" });
+  let potion3 = new Potion({ name: "Stamina Potion", effect: "Restores stamina" });
 
   // Save sample potions to the database
   await potion1.save();
