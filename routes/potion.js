@@ -11,6 +11,7 @@ router.post('/potions', potion_controller.potion_create_post);
 
 
 router.get('/detail', detail_controller.potion_view_one_Page);
+router.get('/create', detail_controller.potion_create_Page);
 
 
 module.exports = router;
