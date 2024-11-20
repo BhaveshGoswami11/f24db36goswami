@@ -3,69 +3,23 @@ extends layout
 block content
   h1 Search Results for Potions
 
-  // Section for Potion Details
-  section
-    h2 Potion Details
-    p Name: Potion of Healing
-    p Effect: Heals the user for 50 HP over 10 seconds
-    p Potency: 75
-
-  // Section for Available Potions
-  section
-    h2 Available Potions
-    ul
-      li
-        a(href='#') Potion of Fire Resistance
-      li
-        a(href='#') Potion of Strength
-      li
-        a(href='#') Potion of Invisibility
-
-  // Search Form for Potions
-  form(action="/search", method="get")
-    label(for="search") Search Potions:
-    input(type="text", name="search", id="search")
-    button(type="submit") Search
-
-  // Display Hardcoded Results in a Grid
+   // Container for Bootstrap grid
   .container-fluid
     .row
-      // Fire Resistance Potion
-      .col-sm-4
-        .card
-          .card-body
-            h5.card-title Potion of Fire Resistance
-            p.card-text Effect: Reduces fire damage
-            p.card-text Potency: 60
-            button(class="btn btn-primary" onclick="buy(0)") Buy Now
-
-      // Strength Potion
-      .col-sm-4
-        .card
-          .card-body
-            h5.card-title Potion of Strength
-            p.card-text Effect: Increases strength temporarily
-            p.card-text Potency: 80
-            button(class="btn btn-primary" onclick="buy(1)") Buy Now
-
-      // Invisibility Potion
-      .col-sm-4
-        .card
-          .card-body
-            h5.card-title Potion of Invisibility
-            p.card-text Effect: Grants invisibility for a short period
-            p.card-text Potency: 50
-            button(class="btn btn-primary" onclick="buy(2)") Buy Now
-
+      // Loop through each item in the results array
+      each potion, index in results
+        .col-sm-2
+          h3 #{potion.name}
+          p Effect: #{potion.effect}
+          p Potency: #{potion.potency}
+         
+          // Button that calls buy() function with the index of the artifact
+          button(type="button", class="btn btn-outline-success", onclick=`buy(${index + 1})`) Purchase
+ 
+  // Script to define the buy() function
   script.
-    // JavaScript for the buy function
     function buy(index) {
-      const potions = [
-        'Potion of Fire Resistance',
-        'Potion of Strength',
-        'Potion of Invisibility'
-      ];
-      alert(`You purchased ${potions[index]}`);
+      alert(`You purchased item ${index}`);
     }
 
   // Style the page with Bootstrap (already included) and some custom CSS

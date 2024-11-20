@@ -57,15 +57,9 @@ exports.potion_create_post = async function(req, res) {
 // Handle potion deletion on DELETE
 exports.potion_delete = async function(req, res) {
     try {
-        // Find the potion by id and remove it from the database
-        const deletedPotion = await Potion.findByIdAndDelete(req.params.id);
-
-        if (!deletedPotion) {
-            return res.status(404).send('Potion not found');
-        }
-
-        // Send a message indicating the potion was deleted
-        res.json({ message: 'Potion deleted successfully' });  
+        result = await Potion.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result) 
     } catch (err) {
         // If an error occurs, return status 500 with the error message
         res.status(500).send(`{"error": ${err}}`);

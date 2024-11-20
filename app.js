@@ -21,7 +21,7 @@ var app = express();
 const connectionString = process.env.MONGO_CON;
 console.log("MongoDB URI:", connectionString);
 
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(connectionString);
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -37,9 +37,9 @@ async function recreateDB() {
   await Potion.deleteMany(); // Clear existing data
 
   // Create sample potion entries
-  let potion1 = new Potion({ name: "Healing Potion", effect: "Restores health" });
-  let potion2 = new Potion({ name: "Mana Potion", effect: "Restores mana" });
-  let potion3 = new Potion({ name: "Stamina Potion", effect: "Restores stamina" });
+  let potion1 = new Potion({ name: "Healing Potion", effect: "Restores health", potency: 60 });
+  let potion2 = new Potion({ name: "Mana Potion", effect: "Restores mana", potency: 30 });
+  let potion3 = new Potion({ name: "Stamina Potion", effect: "Restores stamina", potency: 50 });
 
   // Save sample potions to the database
   await potion1.save();

@@ -1,0 +1,15 @@
+var Potion = require('../models/potion');
+ 
+exports.potion_view_one_Page = async function (req, res) {
+    console.log('Single view for id ' + req.query.id);
+    try {
+      const result = await Potion.findById(req.query.id);
+      res.render('potiondetail', {
+        title: 'Potion Detail',
+        toShow: result,
+      });
+    } catch (err) {
+      res.status(500);
+      res.send(`{'error': '${err}'}`);
+    }
+  };

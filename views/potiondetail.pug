@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+  - let potionId = toShow._id
+  - let name = toShow.name
+  - let effect = toShow.effect
+  - let potency = toShow.potency
+
+  div
+  div.row
+    div(class='potionAttr mr-3') Potion ID is:
+    div #{potionId}
+  div.row
+    div(class='potionAttr mr-3') Name is:
+    div #{name}
+  div.row
+    div(class='potionAttr mr-3') Effect is:
+    div #{effect}
+  div.row
+    div(class='potionAttr mr-3') Potency is:
+    div #{potency}
