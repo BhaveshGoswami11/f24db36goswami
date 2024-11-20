@@ -13,5 +13,6 @@ router.post('/potions', potion_controller.potion_create_post);
 router.get('/detail', detail_controller.potion_view_one_Page);
 router.get('/create', detail_controller.potion_create_Page);
 router.get('/update', detail_controller.potion_update_Page);
+router.get('/delete', detail_controller.potion_delete_Page);
 
 module.exports = router;
