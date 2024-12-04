@@ -1,19 +1,29 @@
 extends layout
 
 block content
-  h1 Welcome to Your Express Server!
-  p This is the updated Express app with Bootstrap integration.
-  button(onclick="boost()") Sample Button
+  h1 Welcome to Potion App Server!
+  p This is the updated Potion app with Bootstrap integration.
+  button(type ="button", class="btn btn-primary", onclick="boost()") Sample Button
   div#boost add in extra
   a(href=`/potion`) Search for Potions 
 
   script.
     let value = 0;
     let amt = 3;
-
+    
     function boost() {
-        amt += 1;
-        value += amt;
-        document.getElementById("boost").innerText = `Boosted ${value} by ${amt}`;
+      amt += 1;
+      value += amt;
+      document.getElementById("boost").innerText = `Boosted ${value} by ${amt}.`;
     }
 
+  if (!user)
+    br
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/potion") Take me to 
+    br
+    a(href="/logout") Logout

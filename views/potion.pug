@@ -1,20 +1,133 @@
 extends layout
- 
+
 block content
   h1= title
+
+  // Ensure 'results' is passed to the template
   - let items = results;
-  div(class="container-fluid")
-    div(class="row")
-      each item in items
-        - let destination = `dispatch(\"/potion/update?id=${item._id}\")`
-        div(class="row-sm-2", class="m-1") Item #{item.name}(#{item.effect}) is #{item.potency}
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
- 
-  // Script to define the buy() function
-  script.
-    function buy(index) {
-      alert(`You purchased item ${index}`);
+
+  // Embedded CSS for styling
+  style.
+    .container {
+      padding: 20px;
     }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      margin: 2px;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+      color: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-info:hover {
+      background-color: #138496;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .btn-outline-success {
+      border-color: #28a745;
+      color: #28a745;
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: 1px solid;
+      cursor: pointer;
+    }
+
+    .btn-outline-success:hover {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      color: black;
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+
+    .d-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .container-fluid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+  // Main container
+  .container
+    .row.justify-content-center
+      button(type="button", class="btn btn-primary mb-3", onclick="window.location='/potioncreate'") Create New Potion
+
+      // Loop through each item in the potion collection (results)
+      each potion, index in items
+        .col-md-4.mb-4
+          .card
+            .card-body
+              h5.card-title #{potion.name}
+              p.card-text <strong>Effect:</strong> #{potion.effect}
+              p.card-text <strong>Potency:</strong> #{potion.potency}
+
+              .d-flex.justify-content-between
+                button(type="button", class="btn btn-info btn-sm", onclick=`dispatch('/potion/detail?id=${potion._id}')`) View Details
+                button(type="button", class="btn btn-danger btn-sm", onclick=`dispatch('/potion/delete?id=${potion._id}')`) Delete Potion
+                button(type="button", class="btn btn-outline-success btn-sm", onclick=`buy(${index})`) Purchase
+                button(type="button", class="btn btn-warning btn-sm", onclick=`dispatch('/potion/update?id=${potion._id}')`) Update
+
+  // JavaScript functions for handling actions
+  script.
     function dispatch(path) {
-      window.location.href=path
+      window.location.href = path;
+    }
+
+    function buy(index) {
+      alert(`You purchased potion ${index + 1}`);
     }

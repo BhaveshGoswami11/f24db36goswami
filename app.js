@@ -7,22 +7,21 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
 function(username, password, done) {
-Account.findOne({ username: username })
-.then(function (user){
-if (err) { return done(err); }
-if (!user) {
-return done(null, false, { message: 'Incorrect username.' });
-}
-if (!user.validPassword(password)) {
-return done(null, false, { message: 'Incorrect password.' });
-}
-return done(null, user);
-})
-.catch(function(err){
-return done(err)
-})
-})
-)
+  Account.findOne({ username: username })
+  .then(function (user) {
+    if (err) { return done(err); }
+    if (!user) {
+      return done(null, false, { message: 'Incorrect username.' });
+    }
+    if (!user.validPassword(password)) {
+      return done(null, false, { message: 'Incorrect password.' });
+    }
+    return done(null, user);
+  })
+  .catch(function(err) {
+    return done(err);
+  })
+}));
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
@@ -89,14 +88,14 @@ app.use(require('express-session')({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false
-  }));
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var Account =require('./models/account');
+var Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());  
+passport.deserializeUser(Account.deserializeUser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
